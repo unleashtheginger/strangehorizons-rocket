@@ -11,14 +11,14 @@ def draw_rocket(percentage=0, flask=False):
 #    image.show()
 
     percentage_diff = 100 - percentage
-    print 'percentage_diff', percentage_diff
+    print('percentage_diff', percentage_diff)
 
     pixel_range = BAR_BOTTOMY - BAR_TOPY_MAX
     percentage_height = ((pixel_range / 100.0) * percentage)
-    print 'percentage height:', percentage_height
+    print('percentage height:', percentage_height)
 
     bar_topy = BAR_BOTTOMY - percentage_height
-    print 'bar_topy', bar_topy
+    print('bar_topy', bar_topy)
 
     blank_image = img
     img_draw = ImageDraw.Draw(blank_image)
