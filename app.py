@@ -4,10 +4,10 @@ import rocket
 
 app = Flask(__name__)
 
-
-@app.route('/rocket')
-def draw_rocket():
-    img_io = rocket.draw_rocket(flask=True)
+@app.route('/rocket/')
+@app.route('/rocket/<int:percentage>')
+def draw_rocket(percentage=50):
+    img_io = rocket.draw_rocket(percentage, flask=True)
     img_io.seek(0)
     return send_file(img_io, mimetype='image/png')
 

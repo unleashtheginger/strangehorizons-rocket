@@ -10,7 +10,16 @@ def draw_rocket(percentage=0, flask=False):
     img = Image.open('test-rocket.png')
 #    image.show()
 
-    bar_topy = 51
+    percentage_diff = 100 - percentage
+    print 'percentage_diff', percentage_diff
+
+    pixel_range = BAR_BOTTOMY - BAR_TOPY_MAX
+    percentage_height = ((pixel_range / 100.0) * percentage)
+    print 'percentage height:', percentage_height
+
+    bar_topy = BAR_BOTTOMY - percentage_height
+    print 'bar_topy', bar_topy
+
     blank_image = img
     img_draw = ImageDraw.Draw(blank_image)
     img_draw.rectangle((95, 187, 105, bar_topy), outline='blue', fill='blue')
