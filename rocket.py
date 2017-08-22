@@ -7,7 +7,7 @@ BAR_TOPX_MAX = 105
 BAR_TOPY_MAX = 22
 
 def draw_rocket(percentage=0, flask=False):
-    img = Image.open('test-rocket.png')
+    img = Image.open('sad-rocket.png')
 #    image.show()
 
     percentage_diff = 100 - percentage
