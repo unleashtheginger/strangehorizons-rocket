@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw
-import StringIO
+from io import StringIO
 
 BAR_BOTTOMX = 95
 BAR_BOTTOMY = 187
