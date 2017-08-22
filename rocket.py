@@ -25,7 +25,7 @@ def draw_rocket(percentage=0, flask=False):
     img_draw.rectangle((95, 187, 105, bar_topy), outline='blue', fill='blue')
 
     if flask:
-        img_io = StringIO.StringIO()
+        img_io = StringIO()
         blank_image.save(img_io, 'PNG', quality=100)
         return img_io
     else:
