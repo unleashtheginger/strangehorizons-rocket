@@ -1,11 +1,12 @@
 from PIL import Image, ImageDraw
+import StringIO
 
 BAR_BOTTOMX = 95
 BAR_BOTTOMY = 187
 BAR_TOPX_MAX = 105
 BAR_TOPY_MAX = 22
 
-def draw_rocket(percentage=0):
+def draw_rocket(percentage=0, flask=False):
     img = Image.open('test-rocket.png')
 #    image.show()
 
@@ -14,7 +15,12 @@ def draw_rocket(percentage=0):
     img_draw = ImageDraw.Draw(blank_image)
     img_draw.rectangle((95, 187, 105, bar_topy), outline='blue', fill='blue')
 
-    return blank_image
+    if flask:
+        img_io = StringIO.StringIO()
+        blank_image.save(img_io, 'PNG', quality=100)
+        return img_io
+    else:
+        return blank_image
 
 if __name__ == '__main__':
     image = draw_rocket()

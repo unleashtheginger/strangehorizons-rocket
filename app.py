@@ -1,20 +1,15 @@
-from flask import Flask
+from flask import Flask, send_file
 from PIL import Image, ImageDraw
+import rocket
 
 app = Flask(__name__)
 
 
-@app.route('/rocket/')
+@app.route('/rocket')
 def draw_rocket():
-    im = Image.open("hopper.jpg")
-
-    draw = ImageDraw.Draw(im)
-    draw.line((0, 0) + im.size, fill=128)
-    draw.line((0, im.size[1], im.size[0], 0), fill=128)
-    del draw
-
-    # write to stdout
-    im.save(sys.stdout, "PNG")
+    img_io = rocket.draw_rocket(flask=True)
+    img_io.seek(0)
+    return send_file(img_io, mimetype='image/png')
 
 @app.route('/')
 def index():
