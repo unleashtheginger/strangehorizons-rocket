@@ -7,11 +7,11 @@ app = Flask(__name__)
 @app.route('/rocket/', methods=["POST"])
 @app.route('/rocket/<int:percentage>')
 def draw_rocket(percentage=50):
-    target = request.form['target']
-    current = request.form['current']
+    target = float(request.form['target'])
+    current = float(request.form['current'])
 
     if request.method == 'POST':
-        percentage = (float(target) / 100) * float(current)
+        percentage = int((100.0 / target) * current)
 
     img_io = rocket.draw_rocket(percentage, flask=True)
     img_io.seek(0)
