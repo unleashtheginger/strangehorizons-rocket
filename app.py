@@ -4,9 +4,16 @@ import rocket
 
 app = Flask(__name__)
 
+@app.route('/fullbox')
+def draw_box(percentage=50):
+    img_io = rocket.draw_box(percentage, flask=True)
+    img_io.seek(0)
+    return send_file(img_io, mimetype='image/png')
+
+
 @app.route('/rocket/', methods=["POST"])
-@app.route('/rocket/<int:percentage>')
 def draw_rocket(percentage=50):
+@app.route('/rocket/<int:percentage>')
     target = float(request.form['target'])
     current = float(request.form['current'])
 
@@ -26,10 +33,10 @@ def index():
     <h1>Configure!</h1>
     <form method=post action='/rocket/'>
       <p>
-    Target: <input type=text name=target>
+    Target: <input type=text name=target value="16000">
 </p>
 <p>
-    Current: <input type=text name=current>
+    Current: <input type=text name=current value="5000">
 </p>
 <p>
          <input type=submit value=Upload>
