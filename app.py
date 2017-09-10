@@ -12,8 +12,8 @@ def draw_box(percentage=50):
 
 
 @app.route('/rocket/', methods=["POST"])
-def draw_rocket(percentage=50):
 @app.route('/rocket/<int:percentage>')
+def draw_rocket(percentage=50):
     target = float(request.form['target'])
     current = float(request.form['current'])
 

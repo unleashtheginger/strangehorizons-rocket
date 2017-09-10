@@ -2,6 +2,7 @@ from __future__ import print_function
 from copy import copy
 from PIL import Image, ImageDraw, ImageFont
 import StringIO
+import cairo
 
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
@@ -18,19 +19,21 @@ BAR_TOPY_MAX = 25
 def draw_box(percentage=0, flask=False):
     background = Image.open('fullbox.png')
     draw = ImageDraw.Draw(background)
-    font = ImageFont.truetype('./assets/FreeMono.ttf', 16)
+    font = ImageFont.truetype('./assets/SourceSansPro-Regular.ttf', 16)
 
     draw.text((0,0), 'Strange Horizons', (0,0,0), font=font)
 
-    # background = Image.new('RGBA', (145, 385), (255, 255, 255))
-    # text = Image.new('RGBA', background.size, (255, 255, 255, 0))
+    background = Image.new('RGBA', (145, 385), (255, 255, 255))
+    text = Image.new('RGBA', background.size, (255, 255, 255, 0))
 
-    # fnt = ImageFont.truetype('./assets/FreeMono.ttf', 16)
-    # d = ImageDraw.Draw(text)
+    fnt = ImageFont.truetype('./assets/FreeMono.ttf', 30)
+    d = ImageDraw.Draw(text)
 
-    # d.text((10,10), 'Hello Strange Horizons', font=fnt, fill=(255, 255, 255, 255))
+    text_string = str(percentage) + '%'
+    d.text((10,10), text_string, font=fnt, fill=BLACK)
 
-    # background = Image.alpha_composite(text, background)
+    background = Image.alpha_composite(background, text)
+
     if flask:
         img_io = StringIO.StringIO()
         background.save(img_io, 'PNG', quality=100)
@@ -45,28 +48,30 @@ def draw_rocket(percentage=0, flask=False):
     foreground = Image.open('rocket.png')
     foreground = foreground.convert('RGBA')
     x, y, = foreground.size
-    background = Image.new('RGBA', (x, y), (255, 255, 255, 255))
-
-#    image.show()
-
-    percentage_diff = 100 - percentage
-#    print('percentage_diff', percentage_diff)
+    background = Image.new('RGBA', (x, y + 100), (255, 255, 255, 255))
 
     pixel_range = BAR_BOTTOMY - BAR_TOPY_MAX
     percentage_height = ((pixel_range / 100.0) * percentage)
-#    print('percentage height:', percentage_height)
 
     bar_topy = BAR_BOTTOMY - percentage_height
-#    print('bar_topy', bar_topy)
 
     img_draw = ImageDraw.Draw(background)
     img_draw.rectangle((BAR_BOTTOMX, BAR_BOTTOMY, BAR_TOPX_MAX, bar_topy),
                        outline='blue', fill='blue')
+
+    text = Image.new('RGBA', background.size, (255, 255, 255, 0))
+    font = ImageFont.truetype('./assets/SourceSansPro-Regular.ttf', 50)
+    draw = ImageDraw.Draw(text)
+    text_string = str(percentage) + '%'
+    draw.text((20, 300), text_string, font=font, fill=BLACK)
+    draw.text((20, 300), text_string, font=font, fill=BLACK)
+
+    background = Image.alpha_composite(background, text)
     background.paste(foreground, (0, 0), foreground)
 
     if flask:
         img_io = StringIO.StringIO()
-        background.save(img_io, 'PNG', quality=100)
+        background.save(img_io, 'PNG', quality=95)
         return img_io
     else:
         return background
