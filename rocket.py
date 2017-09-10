@@ -17,7 +17,7 @@ BAR_TOPX_MAX = 92
 BAR_TOPY_MAX = 25
 
 def draw_box(percentage=0, flask=False):
-    background = Image.open('fullbox.png')
+    background = Image.open('./assets/fullbox.png')
     draw = ImageDraw.Draw(background)
     font = ImageFont.truetype('./assets/SourceSansPro-Regular.ttf', 16)
 
@@ -45,7 +45,7 @@ def draw_box(percentage=0, flask=False):
 
 def draw_rocket(percentage=0, flask=False):
 #    img = Image.open('sad-rocket.png')
-    foreground = Image.open('rocket.png')
+    foreground = Image.open('./assets/rocket.png')
     foreground = foreground.convert('RGBA')
     x, y, = foreground.size
     background = Image.new('RGBA', (x, y + 100), (255, 255, 255, 255))
